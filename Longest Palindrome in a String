@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+ string longestPalin (string S) {
+        string str="";
+        str+=S[0];
+        
+        for(int i=0;i<S.length();i++)
+        {  
+           int count =0,l1=0,l2=0; 
+              if(S[i]==S[i+1])
+             { start1:
+                 string str1="";
+                 str1+=S[i];    
+                 for(int j=1;j<=i;j++)
+                     {  if(S[i-j]==S[i+1+j])
+                         { str1+=S[i+j+1]; 
+                         }
+                         else break;
+                     }
+                          if(str.length()<2*str1.length())
+                          {reverse(str1.begin(), str1.end());
+                           str=str1;
+                           reverse(str1.begin(), str1.end());
+                           str+=str1;
+                           l1=str.length();
+                           }
+              }
+             if(S[i]!=S[i+1]||(S[i]==S[i+1]&&count==0&&S[i]==S[i-1]))
+                {   string str1="";
+                    str1+=S[i];
+                 for(int j=1;j<=i;j++)
+                     {  if(S[i-j]==S[i+j])
+                         { str1+=S[i+j]; 
+                         }
+                         else break;
+                     }
+                        if(str.length()<(2*str1.length())-1)
+                        {reverse(str1.begin(), str1.end());
+                        str=str1;
+                         reverse(str1.begin(), str1.end());
+                        str.pop_back();
+                        str+=str1;
+                        l2=str.length();
+                        }
+                } 
+            if(S[i]==S[i+1]&&S[i]==S[i-1]&&l2<l1&&count==0)
+                { count=1;  goto start1; 
+                }
+            
+       
+        }        
+      return str; 
+    }
+    int main()
+    {  string str;
+    cout<<"Please Enter Your String"<<endl;
+    cin>>str;
+    cout<<"Longest Palindrome is:"<<endl<<longestPalin(str)<<endl;
+    return 0;
+    }
+    
